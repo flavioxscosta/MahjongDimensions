@@ -183,11 +183,11 @@ public class GameController : MonoBehaviour
 
         int currentColor = 0;
 
-        for (int i = 0; i < fullColorList.Length; i++)
+        for (int i = 0; i < fullColorList.Length-1; i = i+2)
         {
             //Must be added in pairs to match up in Mahjong
             fullColorList[i] = colorList[currentColor];
-            fullColorList[i] = colorList[currentColor];
+            fullColorList[i+1] = colorList[currentColor];
 
             currentColor++;
             if (currentColor >= colorList.Length)
