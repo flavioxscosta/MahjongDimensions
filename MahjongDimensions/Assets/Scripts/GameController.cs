@@ -27,7 +27,13 @@ public class GameController : MonoBehaviour
     void Start()
     {
         InitializeColors();
+        InitializeTileMatrix();
 
+
+    }
+
+    void InitializeTileMatrix()
+    {
         matrixLength = 4;
         tileMatrix = new GameObject[matrixLength][][];
         for (int i = 0; i < tileMatrix.Length; i++)
@@ -137,14 +143,33 @@ public class GameController : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            //GameObject tile = tileMatrix[1][0][1];
-            //Debug.Log(tile);
-            //Debug.Log(tileMatrix[1][0][1]);
-            //Destroy(tile);
-            //Debug.Log(tile);
-            //Debug.Log(tileMatrix[1][0][1]);
+            Reset();
+        }
+    }
+
+    void Reset()
+    {
+        Shuffle();
+        DestroyMatrix();
+        InitializeTileMatrix();
+    }
+
+    void DestroyMatrix()
+    {
+        for (int i = 0; i < tileMatrix.Length; i++)
+        {
+            for (int j = 0; j < tileMatrix[i].Length; j++)
+            {
+                for (int k = 0; k < tileMatrix[i][j].Length; k++)
+                {
+                    if ((tileMatrix[i][j][k] != null))
+                    {
+                        Destroy(tileMatrix[i][j][k]);
+                    }
+                }
+            }
         }
     }
 
