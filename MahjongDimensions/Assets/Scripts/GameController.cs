@@ -7,10 +7,10 @@ public class GameController : MonoBehaviour
 {
     public Camera sceneCamera;
     public GameObject tilePrefab;
-    int i = 0;
     int matrixLength = 4;
     private GameObject[][][] tileMatrix;
     private GameObject selectedTile;
+    private Vector3 selectedCoords;
 
     public Color color1;
     public Color color2;
@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     private Color tempColor;
     private Color[] colorList;
     private Color[] fullColorList;
+     
 
     // Start is called before the first frame update
     void Start()
@@ -86,11 +87,17 @@ public class GameController : MonoBehaviour
                     Transform objectHit = hit.transform;
                     selectedTile = objectHit.gameObject;
                     Debug.Log(selectedTile.name);
-                    Outline outline = selectedTile.GetComponent<Outline>();
-                    if(outline != null)
+
+                    if (CanBeSelected(selectedTile))
                     {
-                        outline.enabled = true;
+                        Outline outline = selectedTile.GetComponent<Outline>();
+                        if (outline != null)
+                        {
+                            outline.enabled = true;
+                        }
                     }
+                    
+
 
                 }
             }
@@ -121,19 +128,17 @@ public class GameController : MonoBehaviour
 
         CreateFullColorList();
         Shuffle();
-        Debug.Log(fullColorList);
     }
 
     void CreateFullColorList()
     {
-        Debug.Log(matrixLength);
         if (matrixLength != 0)
         {
 
             int totalTiles = (int)Math.Pow(matrixLength, 3.0);
             if(totalTiles % 2 != 0)
             {
-                Debug.Log("Total number of tiles is not even!");
+                Debug.LogError("Total number of tiles is not even!");
 
             } else
             {
@@ -144,7 +149,6 @@ public class GameController : MonoBehaviour
         }
 
         int currentColor = 0;
-        Debug.Log(colorList);
 
         for (int i = 0; i < fullColorList.Length; i++)
         {
@@ -171,5 +175,95 @@ public class GameController : MonoBehaviour
             fullColorList[rnd] = fullColorList[i];
             fullColorList[i] = tempColor;
         }
+    }
+
+    bool CanBeSelected(GameObject tile)
+    {
+        if (tile.tag.Equals("Tile"))
+        {
+            int facesShown = 0;
+            Vector3? tileCoords = FindCoordsInMatrix(tile);
+            if (tileCoords.HasValue)
+            {
+                float tileSize = tile.transform.lossyScale.x;
+                float x = tileCoords.Value.x;
+                float y = tileCoords.Value.y;
+                float z = tileCoords.Value.z;
+
+                //Check all directions around tile. If at least two faces are showing, tile can be selected
+                if (!TileExistsInCoords(new Vector3 (x + tileSize, y, z)))
+                {
+                    facesShown++;
+                }
+                if (!TileExistsInCoords(new Vector3(x - tileSize, y, z)))
+                {
+                    facesShown++;
+                }
+                if (!TileExistsInCoords(new Vector3(x, y, z + tileSize)))
+                {
+                    facesShown++;
+                }
+                if (!TileExistsInCoords(new Vector3(x, y, z - tileSize)))
+                {
+                    facesShown++;
+                }
+
+    
+                if(facesShown >= 2)
+                {
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
+    //Finds the position of a tile in the tile matrix
+    //Since "Vector3?" is a nullable type, the result will be null if the 
+    //tile is not in the matrix
+    Vector3? FindCoordsInMatrix(GameObject tile)
+    {
+
+        for (int i = 0; i < tileMatrix.Length; i++)
+        {
+            for (int j = 0; j < tileMatrix[i].Length; j++)
+            {
+                for (int k = 0; k < tileMatrix[i][j].Length; k++)
+                {
+                    if(tile.Equals(tileMatrix[i][j][k]))
+                    {
+                        return new Vector3(i, j, k);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    bool TileExistsInCoords(Vector3 coords)
+    {
+
+        int x = (int)coords.x;
+        int y = (int)coords.y;
+        int z = (int)coords.z;
+
+        //Check if coords are within matrix bounds
+        //technically "y" should never be a problem as it is not being used
+        if (x >= 0 && x < tileMatrix.Length &&
+            y >= 0 && y < tileMatrix[0].Length &&
+            z >= 0 && z < tileMatrix[0][0].Length)
+        {
+            if (tileMatrix[x][y][z] != null)
+            {
+                return true;
+            }
+        }
+
+        
+
+        return false;
     }
 }
