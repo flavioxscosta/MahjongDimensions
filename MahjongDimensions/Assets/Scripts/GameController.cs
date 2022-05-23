@@ -80,23 +80,56 @@ public class GameController : MonoBehaviour
                         if (previousOutline != null)
                         {
                             previousOutline.enabled = false;
+                            
                         }
                     }
 
 
                     Transform objectHit = hit.transform;
-                    selectedTile = objectHit.gameObject;
-                    Debug.Log(selectedTile.name);
+                    GameObject previousTile = selectedTile;
+                   
 
-                    if (CanBeSelected(selectedTile))
+                    if (CanBeSelected(objectHit.gameObject))
                     {
+                        selectedTile = objectHit.gameObject;
+                        Debug.Log(selectedTile.name);
                         Outline outline = selectedTile.GetComponent<Outline>();
                         if (outline != null)
                         {
                             outline.enabled = true;
                         }
+
+                        if (previousTile != null && previousTile != selectedTile)
+                        {
+                            
+                            MeshRenderer previousRenderer = previousTile.GetComponent<MeshRenderer>();
+                            MeshRenderer selectedRenderer = selectedTile.GetComponent<MeshRenderer>();
+
+                            if (previousRenderer != null && selectedRenderer != null)
+                            {
+                                if (previousRenderer.material.color == selectedRenderer.material.color)
+                                {
+
+                                    Destroy(previousTile);
+                                    Destroy(selectedTile);
+                                    previousTile = null;
+                                    selectedTile = null;
+
+                                }
+                                
+                                
+                            }
+                        }
+
+
+
                     }
-                    
+                    else
+                    {
+                        selectedTile = null;
+                    }
+                   
+
 
 
                 }
@@ -122,7 +155,7 @@ public class GameController : MonoBehaviour
         color3 = new Color(0.0f, 1,0f, 0.0f);
         color4 = new Color(1.0f, 0.0f, 0.0f);
         color5 = new Color(1.0f, 0.0f, 1.0f);
-        color6 = new Color(1.0f, 1.0f, 0.0f);
+        color6 = new Color(1.0f, 0.5f, 0.0f);
 
         colorList = new Color[]{color1, color2, color3, color4, color5, color6};
 
@@ -190,24 +223,41 @@ public class GameController : MonoBehaviour
                 float y = tileCoords.Value.y;
                 float z = tileCoords.Value.z;
 
-                //Check all directions around tile. If at least two faces are showing, tile can be selected
+                //Check all directions around tile. If at least two touching faces (horizontally) are showing, tile can be selected
+                //Faces here are labeled as front, back, left and right. In code these are arbitrary as they would differ depending
+                //on the player's camera orientation. They are given these names here for better code readability.
+                bool frontShowing = false;
+                bool backShowing = false;
+                bool leftShowing = false;
+                bool rightShowing = false;
+
                 if (!TileExistsInCoords(new Vector3 (x + tileSize, y, z)))
                 {
+                    frontShowing = true;
                     facesShown++;
                 }
                 if (!TileExistsInCoords(new Vector3(x - tileSize, y, z)))
                 {
+                    backShowing = true;
                     facesShown++;
                 }
                 if (!TileExistsInCoords(new Vector3(x, y, z + tileSize)))
                 {
+                    leftShowing = true;
                     facesShown++;
                 }
                 if (!TileExistsInCoords(new Vector3(x, y, z - tileSize)))
                 {
+                    rightShowing = true;
                     facesShown++;
                 }
 
+                //The only scenario where a tile cannot be selected in this case is if the only 2 faces shown are opposite of each other
+                if(facesShown == 2 && frontShowing && backShowing
+                    || facesShown == 2 && rightShowing && leftShowing)
+                {
+                    return false;
+                }
     
                 if(facesShown >= 2)
                 {
