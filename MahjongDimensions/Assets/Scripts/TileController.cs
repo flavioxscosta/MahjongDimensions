@@ -2,24 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class handles the creation of tiles, their selection and matching
 public class TileController : MonoBehaviour
 {
+    //Main scene camera, used for raycasting
     public Camera sceneCamera;
+
+    //Controller that handles the color of each tile
     public ColorController colorController;
+
+    //Tile prefab that each tile is based on
     public GameObject tilePrefab;
+
+    //Properties of the cube of tiles
     int matrixLength = 4;
     private GameObject[][][] tileMatrix;
+
+    //Last tiles to be clicked
     private GameObject selectedTile;
     private GameObject previousTile;
-    private Vector3 selectedCoords;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
+    //Handles player input, such as clicking the mouse
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -28,6 +33,8 @@ public class TileController : MonoBehaviour
         }
     }
 
+    //Handles the behaviour of left clicking
+    //If the player clicked a tile, checks if it can be selected and/or matched
     void HandleLeftClick()
     {
         GameObject clickedTile = GetClickedTile();
@@ -46,6 +53,8 @@ public class TileController : MonoBehaviour
         }
     }
 
+    //Gets the tile that the player clicked
+    //Returns the tile GameObject if a tile was clicked, or null if no tile was clicked
     GameObject GetClickedTile()
     {
         RaycastHit hit;
@@ -66,9 +75,9 @@ public class TileController : MonoBehaviour
         return null;
     }
 
+    //Removes the outline of previously selected tile
     void DeselectTile()
     {
-        //Remove outline of previously selected tile
         if (selectedTile != null)
         {
             Outline previousOutline = selectedTile.GetComponent<Outline>();
@@ -77,11 +86,11 @@ public class TileController : MonoBehaviour
                 previousOutline.enabled = false;
                 previousTile = selectedTile;
                 selectedTile = null;
-
             }
         }
     }
 
+    //Checks if a tile can possibly be matched with others
     bool CanBeSelected(GameObject tile)
     {
         if (tile.tag.Equals("Tile"))
@@ -119,6 +128,9 @@ public class TileController : MonoBehaviour
         return null;
     }
 
+    //Checks all directions around tile. If at least two touching faces (horizontally) are showing, tile can be selected
+    //Faces here are labeled as front, back, left and right. In code these are arbitrary as they would differ depending
+    //on the player's camera orientation. They are given these names here for better code readability
     bool IsBlocked(GameObject tile, Vector3 tileCoords)
     {
         float tileSize = tile.transform.lossyScale.x;
@@ -126,9 +138,7 @@ public class TileController : MonoBehaviour
         float y = tileCoords.y;
         float z = tileCoords.z;
 
-        //Check all directions around tile. If at least two touching faces (horizontally) are showing, tile can be selected
-        //Faces here are labeled as front, back, left and right. In code these are arbitrary as they would differ depending
-        //on the player's camera orientation. They are given these names here for better code readability.
+
         int facesShown = 0;
         bool frontShowing = false;
         bool backShowing = false;
@@ -171,9 +181,10 @@ public class TileController : MonoBehaviour
         return true;
     }
 
+    //Checks if a there is a tile in the tile matrix with the given position
+    //Returns true if tile exists, returns false if tile has already been matched or destroyed
     bool TileExistsInCoords(Vector3 coords)
     {
-
         int x = (int)coords.x;
         int y = (int)coords.y;
         int z = (int)coords.z;
@@ -192,6 +203,7 @@ public class TileController : MonoBehaviour
         return false;
     }
 
+    //Selects the clicked tile
     void SelectTile(GameObject clickedTile)
     {
         selectedTile = clickedTile;
@@ -199,6 +211,7 @@ public class TileController : MonoBehaviour
         OutlineTile(selectedTile);
     }
 
+    //Outlines the currently selected tile
     void OutlineTile(GameObject tile)
     {
         Outline outline = tile.GetComponent<Outline>();
@@ -208,6 +221,7 @@ public class TileController : MonoBehaviour
         }
     }
 
+    //Checks if two tiles are of the same type
     bool TilesMatch()
     {
         if (previousTile != null && previousTile != selectedTile)
@@ -226,6 +240,7 @@ public class TileController : MonoBehaviour
         return false;
     }
 
+    //Removes the two last selected tiles from play
     void CompleteMatch()
     {
         Destroy(previousTile);
@@ -234,6 +249,7 @@ public class TileController : MonoBehaviour
         selectedTile = null;
     }
 
+    //Creates a new cube of tiles and randomizes their color
     public void ResetTiles()
     {
         colorController.Shuffle();
@@ -241,10 +257,12 @@ public class TileController : MonoBehaviour
         InitializeTileMatrix();
     }
 
+    //Creates a cube of tiles
+    //This method creates tile game objects in runtime with sequential names
     public void InitializeTileMatrix()
     {
         matrixLength = 4;
-        colorController.InitializeColors(matrixLength);
+        colorController.Initialize(matrixLength);
         
         tileMatrix = new GameObject[matrixLength][][];
         for (int i = 0; i < tileMatrix.Length; i++)
@@ -274,7 +292,7 @@ public class TileController : MonoBehaviour
         }
     }
 
-
+    //Destroys all tile game objects in the matrix
     void DestroyMatrix()
     {
         for (int i = 0; i < tileMatrix.Length; i++)
