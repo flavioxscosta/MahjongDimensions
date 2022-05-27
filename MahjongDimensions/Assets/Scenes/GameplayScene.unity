@@ -404,7 +404,15 @@ MonoBehaviour:
   color4: {r: 0, g: 0, b: 0, a: 0}
   color5: {r: 0, g: 0, b: 0, a: 0}
   color6: {r: 0, g: 0, b: 0, a: 0}
+  materialList:
+  - {fileID: 2100000, guid: 63a563296e44cf2478a711abcb3cf4ca, type: 2}
+  - {fileID: 2100000, guid: e5d091a1dc3cad946860dec4e19aeabf, type: 2}
+  - {fileID: 2100000, guid: 0910a44e5a593ac46b6684b60e1ed1bf, type: 2}
+  - {fileID: 2100000, guid: f630526c9831e5842b7c93014b43eb22, type: 2}
+  - {fileID: 2100000, guid: b5563b4af4e7e414eb97e35a7ad74d46, type: 2}
+  - {fileID: 2100000, guid: 2943c1c368a782e41bde7497f802b1c2, type: 2}
   fullColorList: []
+  fullMaterialList: []
 --- !u!114 &715565093
 MonoBehaviour:
   m_ObjectHideFlags: 0

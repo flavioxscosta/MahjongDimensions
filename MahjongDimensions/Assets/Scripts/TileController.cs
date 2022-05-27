@@ -9,7 +9,7 @@ public class TileController : MonoBehaviour
     public Camera sceneCamera;
 
     //Controller that handles the color of each tile
-    public ColorController colorController;
+    public MaterialController materialController;
 
     //Tile prefab that each tile is based on
     public GameObject tilePrefab;
@@ -245,7 +245,7 @@ public class TileController : MonoBehaviour
 
             if (previousRenderer != null && selectedRenderer != null)
             {
-                if (previousRenderer.material.color == selectedRenderer.material.color)
+                if (previousRenderer.material.name == selectedRenderer.material.name)
                 {
                     return true;
                 }
@@ -269,7 +269,7 @@ public class TileController : MonoBehaviour
     public void ResetTiles()
     {
         tilesLeft = 0;
-        colorController.Shuffle();
+        materialController.Shuffle();
         DestroyMatrix();
         InitializeTileMatrix();
     }
@@ -279,7 +279,7 @@ public class TileController : MonoBehaviour
     public void InitializeTileMatrix()
     {
         matrixLength = 4;
-        colorController.Initialize(matrixLength);
+        materialController.Initialize(matrixLength);
         
         tileMatrix = new GameObject[matrixLength][][];
         for (int i = 0; i < tileMatrix.Length; i++)
@@ -300,7 +300,15 @@ public class TileController : MonoBehaviour
                     MeshRenderer renderer = instantiatedObject.GetComponent<MeshRenderer>();
                     if (renderer != null)
                     {
-                        renderer.material.color = colorController.fullColorList[currentTileNum];
+                        renderer.material = materialController.fullMaterialList[currentTileNum];
+                        //Vector2[] uvs = instantiatedObject.GetComponent<MeshFilter>().sharedMesh.uv;
+
+                        //uvs[7] = new Vector2(0, 0);
+                        //uvs[6] = new Vector2(1, 0);
+                        //uvs[11] = new Vector2(0, 1);
+                        //uvs[10] = new Vector2(1, 1);
+
+                        //instantiatedObject.GetComponent<MeshFilter>().sharedMesh.uv = uvs;
                     }
 
                     tileMatrix[i][j][k] = instantiatedObject;
