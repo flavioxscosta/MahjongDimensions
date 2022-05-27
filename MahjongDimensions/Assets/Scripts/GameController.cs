@@ -32,6 +32,10 @@ public class GameController : MonoBehaviour
     //Controller that handles UI windows' behavior
     public MetaGameController metaGameController;
 
+    public AudioSource gameOverAudio;
+
+    public AudioSource victoryAudio;
+
     //State of the game. Mostly used to avoid unnecessary Update behaviors while game is over
     bool gameOver;
 
@@ -109,12 +113,14 @@ public class GameController : MonoBehaviour
     void GameOver()
     {
         gameOver = true;
+        gameOverAudio.Play();
         metaGameController.ToggleGameOverMenu(true);
     }
 
     //Handles the logic of winning a round. Triggered when player matches all tiles
     public void Victory()
     {
+        victoryAudio.Play();
         metaGameController.ToggleVictoryMenu(true);
     }
 

@@ -28,6 +28,14 @@ public class TileController : MonoBehaviour
     //Keeps track of how many tiles are left. Used to determine win condition
     int tilesLeft;
 
+    //Source of sound when tiles are matched
+    AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     //Handles player input, such as clicking the mouse
     void Update()
@@ -263,6 +271,7 @@ public class TileController : MonoBehaviour
         selectedTile = null;
         gameController.IncreasePoints();
         tilesLeft -= 2;
+        audioSource.Play();
     }
 
     //Creates a new cube of tiles and randomizes their color
