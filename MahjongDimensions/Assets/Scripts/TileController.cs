@@ -14,6 +14,9 @@ public class TileController : MonoBehaviour
     //Tile prefab that each tile is based on
     public GameObject tilePrefab;
 
+    //Parent of all tiles. Used as a quick way to destroy or hide tiles
+    public GameObject tiles;
+
     //Properties of the cube of tiles
     int matrixLength = 4;
     private GameObject[][][] tileMatrix;
@@ -289,7 +292,8 @@ public class TileController : MonoBehaviour
     {
         matrixLength = 4;
         materialController.Initialize(matrixLength);
-        
+        tiles = new GameObject("Tiles");
+
         tileMatrix = new GameObject[matrixLength][][];
         for (int i = 0; i < tileMatrix.Length; i++)
         {
@@ -305,19 +309,13 @@ public class TileController : MonoBehaviour
 
                     int currentTileNum = i * tileMatrix.Length * tileMatrix[i].Length + j * tileMatrix[i].Length + k;
                     instantiatedObject.name = "Tile " + currentTileNum.ToString();
+                    instantiatedObject.transform.parent = tiles.transform;
 
                     MeshRenderer renderer = instantiatedObject.GetComponent<MeshRenderer>();
                     if (renderer != null)
                     {
                         renderer.material = materialController.fullMaterialList[currentTileNum];
-                        //Vector2[] uvs = instantiatedObject.GetComponent<MeshFilter>().sharedMesh.uv;
 
-                        //uvs[7] = new Vector2(0, 0);
-                        //uvs[6] = new Vector2(1, 0);
-                        //uvs[11] = new Vector2(0, 1);
-                        //uvs[10] = new Vector2(1, 1);
-
-                        //instantiatedObject.GetComponent<MeshFilter>().sharedMesh.uv = uvs;
                     }
 
                     tileMatrix[i][j][k] = instantiatedObject;
@@ -330,36 +328,18 @@ public class TileController : MonoBehaviour
     //Destroys all tile game objects in the matrix
     void DestroyMatrix()
     {
-        for (int i = 0; i < tileMatrix.Length; i++)
+        if(tiles != null)
         {
-            for (int j = 0; j < tileMatrix[i].Length; j++)
-            {
-                for (int k = 0; k < tileMatrix[i][j].Length; k++)
-                {
-                    if ((tileMatrix[i][j][k] != null))
-                    {
-                        Destroy(tileMatrix[i][j][k]);
-                    }
-                }
-            }
+            Destroy(tiles);
         }
     }
 
     //Hides or shows all tiles. Used when game is paused
     public void ToggleMatrix(bool show)
     {
-        for (int i = 0; i < tileMatrix.Length; i++)
+        if (tiles != null)
         {
-            for (int j = 0; j < tileMatrix[i].Length; j++)
-            {
-                for (int k = 0; k < tileMatrix[i][j].Length; k++)
-                {
-                    if ((tileMatrix[i][j][k] != null))
-                    {
-                        tileMatrix[i][j][k].SetActive(show);
-                    }
-                }
-            }
+            tiles.SetActive(show);
         }
     }
 
