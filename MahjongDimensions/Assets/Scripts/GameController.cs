@@ -29,12 +29,17 @@ public class GameController : MonoBehaviour
     //UI element that displays how much time is left in the round
     public Text timeText;
 
+    //Controller that handles UI windows' behavior
     public MetaGameController metaGameController;
+
+    //State of the game. Mostly used to avoid unnecessary Update behaviors while game is over
+    bool gameOver;
 
     // Start is called before the first frame update
     //Creates the cube of Mahjong tiles
     void Start()
     {
+        gameOver = false;
         tileController.InitializeTileMatrix();
         timeRemaining = totalTime;
     }
@@ -62,8 +67,11 @@ public class GameController : MonoBehaviour
             UpdateTimer();
         } else
         {
-            Debug.Log("game over");
-            GameOver();
+            if (!gameOver)
+            {
+                GameOver();
+            }
+           
         }
     }
 
@@ -90,6 +98,7 @@ public class GameController : MonoBehaviour
 
     public void Reset()
     {
+        gameOver = false;
         points = 0;
         timeRemaining = totalTime;
         UpdatePoints();
@@ -99,6 +108,7 @@ public class GameController : MonoBehaviour
     //Handles the logic of finishing a game. Triggered when player runs out of time
     void GameOver()
     {
+        gameOver = true;
         metaGameController.ToggleGameOverMenu(true);
     }
 
