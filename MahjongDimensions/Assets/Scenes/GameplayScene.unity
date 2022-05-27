@@ -747,8 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileController: {fileID: 715565093}
   pointsText: {fileID: 428849103}
-  totalTime: 10
-  timeRemaining: 10
+  totalTime: 300
   timeText: {fileID: 1118431125}
   metaGameController: {fileID: 1213925974}
 --- !u!4 &1947253354

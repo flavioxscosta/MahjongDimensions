@@ -25,6 +25,8 @@ public class TileController : MonoBehaviour
     //Controller that handles general game behaviour
     public GameController gameController;
 
+    //Keeps track of how many tiles are left. Used to determine win condition
+    int tilesLeft;
 
     // Update is called once per frame
     //Handles player input, such as clicking the mouse
@@ -51,6 +53,10 @@ public class TileController : MonoBehaviour
                 if (TilesMatch())
                 {
                     CompleteMatch();
+                    if (tilesLeft <= 0)
+                    {
+                        gameController.Victory();
+                    }
                 }
             }
         }
@@ -251,11 +257,13 @@ public class TileController : MonoBehaviour
         previousTile = null;
         selectedTile = null;
         gameController.IncreasePoints();
+        tilesLeft -= 2;
     }
 
     //Creates a new cube of tiles and randomizes their color
     public void ResetTiles()
     {
+        tilesLeft = 0;
         colorController.Shuffle();
         DestroyMatrix();
         InitializeTileMatrix();
@@ -291,6 +299,7 @@ public class TileController : MonoBehaviour
                     }
 
                     tileMatrix[i][j][k] = instantiatedObject;
+                    tilesLeft++;
                 }
             }
         }

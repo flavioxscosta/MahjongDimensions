@@ -105,20 +105,26 @@ public class GameController : MonoBehaviour
         tileController.ResetTiles();
     }
 
-    //Handles the logic of finishing a game. Triggered when player runs out of time
+    //Handles the logic of failing a round. Triggered when player runs out of time
     void GameOver()
     {
         gameOver = true;
         metaGameController.ToggleGameOverMenu(true);
     }
 
+    //Handles the logic of winning a round. Triggered when player matches all tiles
+    public void Victory()
+    {
+        metaGameController.ToggleVictoryMenu(true);
+    }
 
 
 
 
-    
 
-    
 
-    
+
+
+
+
 }
