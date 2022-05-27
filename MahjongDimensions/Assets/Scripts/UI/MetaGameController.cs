@@ -113,8 +113,7 @@ namespace Platformer.UI
 
             if (Input.GetButtonDown("Cancel")) //The escape key by default
             {
-                tileController.ToggleMatrix(showMainCanvas);
-                ToggleMainMenu(show: !showMainCanvas);
+                HandlePause();
             }
 
             //Used for testing
@@ -130,6 +129,12 @@ namespace Platformer.UI
             //    Debug.Log("V");
             //    ToggleVictoryMenu(true);
             //}
+        }
+
+        public void HandlePause()
+        {
+            tileController.ToggleMatrix(showMainCanvas);
+            ToggleMainMenu(show: !showMainCanvas);
         }
 
         public void ReturnToMainMenu(bool gameOver)

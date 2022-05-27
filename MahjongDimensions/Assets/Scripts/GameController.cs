@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public readonly int pointIncrease = 100;
 
     //UI element that displays how many points the player has
-    public Text pointsText;
+    public TMPro.TextMeshProUGUI pointsText;
 
     //How much time a round takes. Player loses the round if they cannot match all the tiles before the timer reaches zero
     public float totalTime = 300;
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     float timeRemaining;
 
     //UI element that displays how much time is left in the round
-    public Text timeText;
+    public TMPro.TextMeshProUGUI timeText;
 
     //Controller that handles UI windows' behavior
     public MetaGameController metaGameController;
