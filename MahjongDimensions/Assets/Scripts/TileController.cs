@@ -48,7 +48,7 @@ public class TileController : MonoBehaviour
         GameObject clickedTile = GetClickedTile();
         if(clickedTile != null)
         {
-            DeselectTile();
+            DeselectPreviousTile();
             if (CanBeSelected(clickedTile))
             {
                 SelectTile(clickedTile);
@@ -69,16 +69,15 @@ public class TileController : MonoBehaviour
     //Returns the tile GameObject if a tile was clicked, or null if no tile was clicked
     GameObject GetClickedTile()
     {
-        RaycastHit hit;
         if (sceneCamera != null)
         {
             Ray ray = sceneCamera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
 
                 Transform objectHit = hit.transform;
-                if(objectHit != null)
+                if (objectHit != null)
                 {
                     return objectHit.gameObject;
                 }
@@ -88,7 +87,7 @@ public class TileController : MonoBehaviour
     }
 
     //Removes the outline of previously selected tile
-    void DeselectTile()
+    void DeselectPreviousTile()
     {
         if (selectedTile != null)
         {
@@ -99,6 +98,9 @@ public class TileController : MonoBehaviour
                 previousTile = selectedTile;
                 selectedTile = null;
             }
+        } else //If there is no currently selected tile, the previous tile loses purpose
+        {
+            previousTile = null;
         }
     }
 
