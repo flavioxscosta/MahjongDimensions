@@ -27,7 +27,7 @@ namespace Platformer.UI
 
         bool showMainCanvas = false;
 
-
+        public GameController gameController;
 
         private void Start()
         {
@@ -131,6 +131,7 @@ namespace Platformer.UI
         public void RestartLevel()
         {
             Time.timeScale = 1;
+            gameController.Reset();
         }
 
 

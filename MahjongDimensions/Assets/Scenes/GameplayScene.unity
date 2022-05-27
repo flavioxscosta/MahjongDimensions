@@ -209,6 +209,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3226194798708412176, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1947253353}
     - target: {fileID: 3226194798708412177, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_Name
       value: GameplayUI
@@ -701,6 +705,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118431123}
   m_CullTransparentMesh: 1
+--- !u!114 &1213925974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3226194798708412176, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
+  m_PrefabInstance: {fileID: 459403308}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86f4a4ae3a36547dd915a91ceebed970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1947253352
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,8 +747,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileController: {fileID: 715565093}
   pointsText: {fileID: 428849103}
-  timeRemaining: 300
+  totalTime: 10
+  timeRemaining: 10
   timeText: {fileID: 1118431125}
+  metaGameController: {fileID: 1213925974}
 --- !u!4 &1947253354
 Transform:
   m_ObjectHideFlags: 0
