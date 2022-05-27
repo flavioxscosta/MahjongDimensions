@@ -22,6 +22,9 @@ public class TileController : MonoBehaviour
     private GameObject selectedTile;
     private GameObject previousTile;
 
+    //Controller that handles general game behaviour
+    public GameController gameController;
+
 
     // Update is called once per frame
     //Handles player input, such as clicking the mouse
@@ -247,6 +250,7 @@ public class TileController : MonoBehaviour
         Destroy(selectedTile);
         previousTile = null;
         selectedTile = null;
+        gameController.IncreasePoints();
     }
 
     //Creates a new cube of tiles and randomizes their color
