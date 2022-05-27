@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//  A simple Unity C# script for orbital movement around a target gameobject
+//  Author: Ashkan Ashtiani
+//  Gist on Github: https://gist.github.com/3dln/c16d000b174f7ccf6df9a1cb0cef7f80
 public class CameraDrag : MonoBehaviour
 {
 

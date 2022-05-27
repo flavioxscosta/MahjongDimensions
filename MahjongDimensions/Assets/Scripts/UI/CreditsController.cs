@@ -24,10 +24,13 @@ public class CreditsController : MonoBehaviour
     void FillCreditsList()
     {
         creditsList = new string[]{
-            "This project was created by ---",
-            "Type of Asset \n \"Asset Name\" \n by Asset Creator",
-            "Type of Music \n \"Music Name\" \n by Music Creator on freesound.org",
-            "Sound effect \n \"Sound Effect Name\" \n by Sound Effect Creator on freesound.org"
+            "This project was created by Flávio Costa",
+            "Tile Outlines\n \"Quick Outline\" \n by Chris Nolet on the Unity Asset Store",
+            "Flower Sprites\n \"Icon Pack: Flowers | Flat\" \n by Vitaly Gorbachev on Flaticon",
+            "Background music\n \"Wrapped in dreams - base track 02\" \n by frankum on freesoung.org",
+            "Sound effect \n \"Retro video game sfx - Jump\" \n by OwlStorm on freesound.org",
+            "Sound effect \n \"retro death sfx3.wav\" \n by stumpbutt on freesound.org",
+            "Sound effect \n \"hup.wav\" \n by maxmakessounds on freesound.org"
         };
     }
 

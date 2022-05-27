@@ -26,9 +26,9 @@ public class HelpController : MonoBehaviour
     void FillHelpList()
     {
         helpList = new string[]{
-            "Tip 1",
-            "Long tip example example example example example example example example example example example example example example",
-            "Tip 3"
+            "Click on identical tiles to match them and remove them from the game!",
+            "Only tiles that have two adjancent sides showing can be clicked. Remove all game tiles to win!",
+            "You can press R to restart the round and Esc to open the Pause Menu!"
         };
     }
 
