@@ -34,7 +34,10 @@ public class TileController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            HandleLeftClick();
+            if(Time.timeScale != 0) //Only allows to click tiles if there is no menu open and the game is not paused
+            {
+                HandleLeftClick();
+            }
         }
     }
 
