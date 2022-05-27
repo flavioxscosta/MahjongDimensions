@@ -594,7 +594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4555762781822949154, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4555762781822949154, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -698,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4871478969406182692, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: ReturnToMainMenu
+      value: ToggleMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 4871478969406182692, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -798,7 +798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7962245866501202853, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7962245866501202853, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1336,6 +1336,7 @@ MonoBehaviour:
   sceneCamera: {fileID: 963194227}
   materialController: {fileID: 715565092}
   tilePrefab: {fileID: 3659283509246527442, guid: df51a14b4920e2f4da9ea1d8c3593b7a, type: 3}
+  tiles: {fileID: 0}
   gameController: {fileID: 1947253353}
 --- !u!4 &715565094
 Transform:

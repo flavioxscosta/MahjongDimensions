@@ -14,17 +14,16 @@ public class MaterialController : MonoBehaviour
     // each material can be applied to each tile
     public Material[] fullMaterialList;
 
-
     //Initializes the materials to be used and shuffles the materials that each tile will have
+    //matrixLength - total number of tiles
     public void Initialize(int matrixLength)
     {
         InitializeFullMaterialList(matrixLength);
         Shuffle();
     }
 
-
-
     //Initializes the list with the material of each tile
+    //matrixLength - total number of tiles
     void InitializeFullMaterialList(int matrixLength)
     {
         if (matrixLength != 0)

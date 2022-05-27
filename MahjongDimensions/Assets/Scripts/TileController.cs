@@ -116,6 +116,7 @@ public class TileController : MonoBehaviour
     }
 
     //Checks if a tile can possibly be matched with others
+    //tile - the tile to check
     bool CanBeSelected(GameObject tile)
     {
         if (tile.tag.Equals("Tile"))
@@ -135,6 +136,7 @@ public class TileController : MonoBehaviour
     //Finds the position of a tile in the tile matrix
     //Since "Vector3?" is a nullable type, the result will be null if the 
     //tile is not in the matrix
+    //tile - the tile whose position we want to find
     Vector3? FindCoordsInMatrix(GameObject tile)
     {
         for (int i = 0; i < tileMatrix.Length; i++)
@@ -156,6 +158,8 @@ public class TileController : MonoBehaviour
     //Checks all directions around tile. If at least two touching faces (horizontally) are showing, tile can be selected
     //Faces here are labeled as front, back, left and right. In code these are arbitrary as they would differ depending
     //on the player's camera orientation. They are given these names here for better code readability
+    //tile - the tile to be checked
+    //tileCoords - the position of the tile in the matrix
     bool IsBlocked(GameObject tile, Vector3 tileCoords)
     {
         float tileSize = tile.transform.lossyScale.x;
@@ -208,6 +212,7 @@ public class TileController : MonoBehaviour
 
     //Checks if a there is a tile in the tile matrix with the given position
     //Returns true if tile exists, returns false if tile has already been matched or destroyed
+    //coords - position in the matrix
     bool TileExistsInCoords(Vector3 coords)
     {
         int x = (int)coords.x;
@@ -229,6 +234,7 @@ public class TileController : MonoBehaviour
     }
 
     //Selects the clicked tile
+    //clickedTile - the tile that was clicked
     void SelectTile(GameObject clickedTile)
     {
         selectedTile = clickedTile;
@@ -237,6 +243,7 @@ public class TileController : MonoBehaviour
     }
 
     //Outlines the currently selected tile
+    //tile - the tile to be selected
     void OutlineTile(GameObject tile)
     {
         Outline outline = tile.GetComponent<Outline>();
@@ -335,6 +342,7 @@ public class TileController : MonoBehaviour
     }
 
     //Hides or shows all tiles. Used when game is paused
+    //show - true if tiles should be shown, false if they are to be hidden
     public void ToggleMatrix(bool show)
     {
         if (tiles != null)

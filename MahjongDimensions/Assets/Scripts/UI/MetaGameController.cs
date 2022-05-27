@@ -5,46 +5,39 @@ using UnityEngine.SceneManagement;
 
 namespace Platformer.UI
 {
-    /// <summary>
-    /// The MetaGameController is responsible for switching control between the high level
-    /// contexts of the application, eg the Main Menu and Gameplay systems.
-    /// </summary>
+    //The MetaGameController is responsible for switching control between the high level
+    //contexts of the application, eg the Main Menu and Gameplay systems.
     public class MetaGameController : MonoBehaviour
     {
-        /// <summary>
-        /// The main UI object which used for the menu.
-        /// </summary>
+        //The main UI object which used for the menu.
         public MainUIController mainMenu;
 
-        /// <summary>
-        /// A list of canvas objects which are used during gameplay (when the main ui is turned off)
-        /// </summary>
+        //A list of canvas objects which are used during gameplay (when the main ui is turned off)
         public Canvas[] gamePlayCanvasii;
 
+        //Canvas that shows up when player fails a round
         public Canvas gameOverCanvas;
+
+        //Canvas that shows up when player wins a round
         public Canvas victoryCanvas;
 
-
+        //Whether the pause menu should be showing or not
         bool showMainCanvas = false;
 
+        //Controller that handles general game behaviour
         public GameController gameController;
 
+        //Controller that handles tile behaviour
         public TileController tileController;
 
-        private void Start()
-        {
-
-        }
-
+        //
         void OnEnable()
         {
             _ToggleMainMenu(showMainCanvas);
         }
 
-        /// <summary>
-        /// Turn the main menu on or off.
-        /// </summary>
-        /// <param name="show"></param>
+        //Turns the pause menu on or off. Checks if menu needs to be shown
+        //show - whether the pause menu should be shown or hidden
         public void ToggleMainMenu(bool show)
         {
             if (this.showMainCanvas != show)
@@ -53,6 +46,8 @@ namespace Platformer.UI
             }
         }
 
+        //Turns the pause menu on or off.
+        //show - whether the pause menu should be shown or hidden
         void _ToggleMainMenu(bool show)
         {
             if (show)
@@ -75,6 +70,8 @@ namespace Platformer.UI
             }
         }
 
+        //Turns the game over menu on or off.
+        //show - whether the menu should be shown or hidden
         public void ToggleGameOverMenu(bool show)
         {
             if (show)
@@ -88,6 +85,9 @@ namespace Platformer.UI
                 gameOverCanvas.gameObject.SetActive(false);
             }
         }
+
+        //Turns the victory over menu on or off.
+        //show - whether the menu should be shown or hidden
         public void ToggleVictoryMenu(bool show)
         {
             if (show)
@@ -102,46 +102,36 @@ namespace Platformer.UI
             }
         }
 
+        //Resumes the game, hiding the menu and showing the tiles
         public void Resume()
         {
             ToggleMainMenu(false);
             tileController.ToggleMatrix(true);
         }
 
+        //Called every frame
         void Update()
         {
-
             if (Input.GetButtonDown("Cancel")) //The escape key by default
             {
                 HandlePause();
             }
-
-            //Used for testing
-            //if (Input.GetKeyDown(KeyCode.G))
-            //{
-            //    Debug.Log("G");
-            //    ToggleGameOverMenu(true);
-            //}
-
-            //Used for testing
-            //if (Input.GetKeyDown(KeyCode.V))
-            //{
-            //    Debug.Log("V");
-            //    ToggleVictoryMenu(true);
-            //}
         }
 
+        //Handles the player pressing the pause key or button, toggling the pause menu and tiles
         public void HandlePause()
         {
             tileController.ToggleMatrix(showMainCanvas);
             ToggleMainMenu(show: !showMainCanvas);
         }
 
-        public void ReturnToMainMenu(bool gameOver)
+        //Returns to the Main Menu scene
+        public void ReturnToMainMenu()
         {
             SceneManager.LoadScene("MainMenuScene", LoadSceneMode.Single);
         }
 
+        //Restarts the round, unpausing the game
         public void RestartLevel()
         {
             Time.timeScale = 1;

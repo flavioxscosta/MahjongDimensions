@@ -32,8 +32,10 @@ public class GameController : MonoBehaviour
     //Controller that handles UI windows' behavior
     public MetaGameController metaGameController;
 
+    //Audio that plays when player fails the round
     public AudioSource gameOverAudio;
 
+    //Audio that plays when player wins the round
     public AudioSource victoryAudio;
 
     //State of the game. Mostly used to avoid unnecessary Update behaviors while game is over
@@ -100,6 +102,7 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Resets the whole round
     public void Reset()
     {
         gameOver = false;
