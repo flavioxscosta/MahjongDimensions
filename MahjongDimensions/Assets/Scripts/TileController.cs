@@ -328,4 +328,22 @@ public class TileController : MonoBehaviour
         }
     }
 
+    //Hides or shows all tiles. Used when game is paused
+    public void ToggleMatrix(bool show)
+    {
+        for (int i = 0; i < tileMatrix.Length; i++)
+        {
+            for (int j = 0; j < tileMatrix[i].Length; j++)
+            {
+                for (int k = 0; k < tileMatrix[i][j].Length; k++)
+                {
+                    if ((tileMatrix[i][j][k] != null))
+                    {
+                        tileMatrix[i][j][k].SetActive(show);
+                    }
+                }
+            }
+        }
+    }
+
 }

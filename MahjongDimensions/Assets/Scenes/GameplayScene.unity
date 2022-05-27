@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38.29, y: 178.52}
+  m_AnchoredPosition: {x: -380, y: 178.52}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &428849103
@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: gameController
       value: 
       objectReference: {fileID: 1947253353}
+    - target: {fileID: 3226194798708412176, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
+      propertyPath: tileController
+      value: 
+      objectReference: {fileID: 715565093}
     - target: {fileID: 3226194798708412177, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_Name
       value: GameplayUI
@@ -260,6 +264,14 @@ PrefabInstance:
     - target: {fileID: 3226194798708412183, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962245868502963356, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962245868502963356, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40f751a35407f0d45b5bb17bec63ffc8, type: 3}
@@ -660,7 +672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 146.24, y: 178.52}
+  m_AnchoredPosition: {x: 465, y: 178.52}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1118431125

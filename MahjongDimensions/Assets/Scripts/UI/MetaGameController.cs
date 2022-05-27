@@ -29,6 +29,8 @@ namespace Platformer.UI
 
         public GameController gameController;
 
+        public TileController tileController;
+
         private void Start()
         {
 
@@ -100,11 +102,18 @@ namespace Platformer.UI
             }
         }
 
+        public void Resume()
+        {
+            ToggleMainMenu(false);
+            tileController.ToggleMatrix(true);
+        }
+
         void Update()
         {
 
             if (Input.GetButtonDown("Cancel")) //The escape key by default
             {
+                tileController.ToggleMatrix(showMainCanvas);
                 ToggleMainMenu(show: !showMainCanvas);
             }
 
