@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Creates a Singleton SettingsDTO object that is sent across scenes
 public class SettingsDTOBuilder : MonoBehaviour
 {
 
+    //Prefab that the Settings DTO is based on
     public GameObject prefab;
+
     // Start is called before the first frame update
     void Start()
     {

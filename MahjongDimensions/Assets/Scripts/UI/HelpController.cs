@@ -4,14 +4,24 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+//A simple class that alternates between horizontal pages of a UI
+//Note: This class is identical to CreditsController class. They were initially different classes
+//as they had much different behaviour. They remain separate for convenience, but ideally they should be the same class
 public class HelpController : MonoBehaviour
 {
-
+    //List of text, one will be shown per page
     string[] helpList;
+
+    //UI element that holds text
     public TextMeshProUGUI currentHelpText;
+
+    //Button that goes back in the text
     public GameObject previousButton;
+
+    //Button that advances text
     public GameObject nextButton;
 
+    //Current page position
     int i;
 
 
@@ -23,6 +33,7 @@ public class HelpController : MonoBehaviour
         currentHelpText.text = helpList[i];
     }
 
+    //Text to be shown in each page
     void FillHelpList()
     {
         helpList = new string[]{
@@ -32,9 +43,9 @@ public class HelpController : MonoBehaviour
         };
     }
 
+    //Goes back to the previous page of text
     public void Previous()
     {
-
         if (i >= helpList.Length - 1)
         {
             nextButton.SetActive(true);
@@ -50,8 +61,7 @@ public class HelpController : MonoBehaviour
 
     }
 
-
-
+    //Advances to the next page of text
     public void Next()
     {
 
@@ -67,12 +77,7 @@ public class HelpController : MonoBehaviour
         }
         i++;
         currentHelpText.text = helpList[i];
-
-        
-        
     }
-
-
 
     // Update is called once per frame
     void Update()
